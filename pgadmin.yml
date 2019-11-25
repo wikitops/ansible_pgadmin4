@@ -1,0 +1,7 @@
+---
+
+- hosts: pgadmin
+  remote_user: vagrant
+  become: yes
+  roles:
+    - pgadmin

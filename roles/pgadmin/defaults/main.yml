@@ -1,0 +1,38 @@
+---
+
+###
+# PGADMIN
+###
+
+# Version
+pgadmin_version: latest
+
+# Configuration
+pgadmin_default_email: pgadmin@wikitops.com
+pgadmin_default_password: changeme # Encrypt me
+pgadmin_listen_address: 0.0.0.0
+pgadmin_listen_port: "80"
+pgadmin_server_json_file: "{{ pgadmin_server_dir }}/servers.json"
+
+# Directory
+pgadmin_server_dir: /pgadmin4
+
+###
+# DOCKER
+###
+
+# Network
+pgadmin_docker_network:
+  name: pgadmin
+  state: present
+
+# Stack
+pgadmin_docker:
+  name: pgadmin
+  image: dpage/pgadmin4:{{ pgadmin_version }}
+  state: started
+  network: pgadmin
+  ports:
+    - 80:80/tcp
+  volumes:
+    - "{{ pgadmin_server_json_file }}:/pgadmin4/servers.json"
